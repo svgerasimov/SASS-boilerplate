@@ -1,0 +1,89 @@
+// CENTER ELEMENTS
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERY MANAGER
+/*
+0 - 576px:      Phone - BY DEFAULT
+576px - 768px:  Phone landscape
+768px - 992px:  Tablet portrait
+992 - 1200px:   Tablet landscape
+[1200 - 1800] is where our normal styles apply
+1800px + :      Big desktop
+
+$breakpoint arguement choices:
+- phone 
+- phone-land
+- tab-port
+- tab-land
+- desktop
+- big-desktop
+
+
+// Define the breakpoints
+
+*/
+
+$breakpoint-phone: 0; //- by default
+$breakpoint-phone-land: 576px;
+$breakpoint-tab-port: 768px;
+$breakpoint-tab-land: 992px;
+$breakpoint-desktop: 1200px;
+$breakpoint-big-desktop: 1800px;
+
+
+@mixin respond($breakpoint, $pixels: $breakpoint-phone) {
+  @if $breakpoint == phone-land {
+    @media screen and (min-width: $breakpoint-phone-land) {
+        @content;
+    }
+  }
+  @else if $size == tab-port {
+    @media screen and (min-width: $breakpoint-tab-port) {
+        @content;
+    }
+  }
+  @else if $size == tab-land {
+    @media screen and (min-width: $breakpoint-tab-land) {
+        @content;
+    }
+  }
+ @else if $size == desktop {
+    @media screen and (min-width: $breakpoint-desktop) {
+        @content;
+    }
+  }
+ @else if $size == big-desktop {
+    @media screen and (min-width: $breakpoint-big-desktop) {
+        @content;
+    }
+  }
+  @else if $size == 'custom' {
+    @media screen and (min-width: $pixels + px) {
+     @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+
+// LINEAR GRADIENT
+@mixin gradient($start-color, $end-color, $orientation: 'horizontal') {
+  background: $start-color;
+  @if $orientation == 'vertical' {
+    background: -webkit-linear-gradient(top, $start-color, $end-color);
+    background: linear-gradient(to bottom, $start-color, $end-color);
+  } @else if $orientation == 'horizontal' {
+    background: -webkit-linear-gradient(left, $start-color, $end-color);
+    background: linear-gradient(to right, $start-color, $end-color);
+  } @else {
+    background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+    background: radial-gradient(ellipse at center, $start-color, $end-color);
+  }
+}
