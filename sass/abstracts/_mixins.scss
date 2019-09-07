@@ -1,32 +1,21 @@
-// CENTER ELEMENTS
-@mixin absCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 // MEDIA QUERY MANAGER
 /*
 0 - 576px:      Phone - BY DEFAULT
 576px - 768px:  Phone landscape
 768px - 992px:  Tablet portrait
 992 - 1200px:   Tablet landscape
-[1200 - 1800] is where our normal styles apply
+1200 - 1800:    Desktop
 1800px + :      Big desktop
-
-$breakpoint arguement choices:
+$breakpoint argument choices:
 - phone 
 - phone-land
 - tab-port
 - tab-land
 - desktop
 - big-desktop
-
+*/
 
 // Define the breakpoints
-
-*/
 
 $breakpoint-phone: 0; //- by default
 $breakpoint-phone-land: 576px;
@@ -35,43 +24,35 @@ $breakpoint-tab-land: 992px;
 $breakpoint-desktop: 1200px;
 $breakpoint-big-desktop: 1800px;
 
-
 @mixin respond($breakpoint, $pixels: $breakpoint-phone) {
   @if $breakpoint == phone-land {
     @media screen and (min-width: $breakpoint-phone-land) {
-        @content;
+      @content;
     }
-  }
-  @else if $size == tab-port {
+  } @else if $breakpoint == tab-port {
     @media screen and (min-width: $breakpoint-tab-port) {
-        @content;
+      @content;
     }
-  }
-  @else if $size == tab-land {
+  } @else if $breakpoint == tab-land {
     @media screen and (min-width: $breakpoint-tab-land) {
-        @content;
+      @content;
     }
-  }
- @else if $size == desktop {
+  } @else if $breakpoint == desktop {
     @media screen and (min-width: $breakpoint-desktop) {
-        @content;
+      @content;
     }
-  }
- @else if $size == big-desktop {
+  } @else if $breakpoint == big-desktop {
     @media screen and (min-width: $breakpoint-big-desktop) {
-        @content;
+      @content;
     }
-  }
-  @else if $size == 'custom' {
+  } @else if $breakpoint == 'custom' {
     @media screen and (min-width: $pixels + px) {
-     @content;
+      @content;
     }
-  }
-  @else {
+  } @else {
     @content;
   }
 }
-
 
 // LINEAR GRADIENT
 @mixin gradient($start-color, $end-color, $orientation: 'horizontal') {
@@ -83,7 +64,35 @@ $breakpoint-big-desktop: 1800px;
     background: -webkit-linear-gradient(left, $start-color, $end-color);
     background: linear-gradient(to right, $start-color, $end-color);
   } @else {
-    background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
+    background: -webkit-radial-gradient(
+      center,
+      ellipse cover,
+      $start-color,
+      $end-color
+    );
     background: radial-gradient(ellipse at center, $start-color, $end-color);
+  }
+}
+
+// Define vertical, horizontal, or both position
+@mixin center($position) {
+  position: absolute;
+
+  @if $position == 'vertical' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  } @else if $position == 'horizontal' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  } @else if $position == 'both' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 }
